@@ -8,7 +8,7 @@ import (
 	"path/filepath"
 )
 
-func FindKubeConfig() (string, bool) {
+func FindConfig() (string, bool) {
 	if home := env.HomeDir(); home != "" {
 		p := filepath.Join(home, ".kube", "config")
 		_, err := os.Stat(p)
@@ -20,14 +20,14 @@ func FindKubeConfig() (string, bool) {
 	return "", false
 }
 
-func LoadKubeConfig(context string, kubeconfig string) (*rest.Config, error) {
+func Load(context string, kubeconfig string) (*rest.Config, error) {
 	if kubeconfig != "" {
 		_, err := os.Stat(kubeconfig)
 		if err == nil {
 			return clientcmd.BuildConfigFromFlags(context, kubeconfig)
 		}
 	}
-	mykubeconfig, found := FindKubeConfig()
+	mykubeconfig, found := FindConfig()
 	if found {
 		return clientcmd.BuildConfigFromFlags(context, mykubeconfig)
 	}

@@ -17,18 +17,18 @@ func TestLoadDefaultKubeConfig(t *testing.T) {
 		context = testing_context
 	}
 
-	config, err := LoadKubeConfig(context, "")
+	config, err := Load(context, "")
 	assert.NoError(t, err)
 	assert.NotNil(t, config)
 }
 
-func TestFindKubeConfig(t *testing.T) {
+func TestFindConfig(t *testing.T) {
 	if _, defined := os.LookupEnv("TEST_K8S"); !defined {
 		t.SkipNow()
 		return
 	}
 
-	config, ok := FindKubeConfig()
+	config, ok := FindConfig()
 	assert.True(t, ok)
 
 	_, err := os.Stat(config)
