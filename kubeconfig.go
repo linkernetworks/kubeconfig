@@ -1,7 +1,7 @@
 package kubeconfig
 
 import (
-	"bitbucket.org/linkernetworks/cv-tracker/src/env"
+	"bitbucket.org/linkernetworks/aurora/src/env"
 	"k8s.io/client-go/rest"
 	"k8s.io/client-go/tools/clientcmd"
 	"os"
