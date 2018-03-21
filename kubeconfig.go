@@ -8,6 +8,7 @@ import (
 	"path/filepath"
 )
 
+// FindConfig finds the .kube/config file from user's $HOME
 func FindConfig() (string, bool) {
 	if home := env.HomeDir(); home != "" {
 		p := filepath.Join(home, ".kube", "config")
@@ -20,16 +21,17 @@ func FindConfig() (string, bool) {
 	return "", false
 }
 
-func Load(context string, kubeconfig string) (*rest.Config, error) {
+func Load(kubeconfig string) (*rest.Config, error) {
 	if kubeconfig != "" {
 		_, err := os.Stat(kubeconfig)
 		if err == nil {
-			return clientcmd.BuildConfigFromFlags(context, kubeconfig)
+			// the first parameter of BuildConfigFromFlags is "masterUrl"
+			return clientcmd.BuildConfigFromFlags("", kubeconfig)
 		}
 	}
 	mykubeconfig, found := FindConfig()
 	if found {
-		return clientcmd.BuildConfigFromFlags(context, mykubeconfig)
+		return clientcmd.BuildConfigFromFlags("", mykubeconfig)
 	}
 	return rest.InClusterConfig()
 }

@@ -12,12 +12,7 @@ func TestLoadDefaultKubeConfig(t *testing.T) {
 		return
 	}
 
-	context := ""
-	if testing_context, defined := os.LookupEnv("TEST_K8S_CONTEXT"); defined {
-		context = testing_context
-	}
-
-	config, err := Load(context, "")
+	config, err := Load("")
 	assert.NoError(t, err)
 	assert.NotNil(t, config)
 }
