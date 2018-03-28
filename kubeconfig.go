@@ -10,6 +10,10 @@ import (
 
 // FindConfig finds the .kube/config file from user's $HOME
 func FindConfig() (string, bool) {
+	if p, ok := os.LookupEnv("KUBECONFIG"); ok {
+		return p, true
+	}
+
 	if home := env.HomeDir(); home != "" {
 		p := filepath.Join(home, ".kube", "config")
 		_, err := os.Stat(p)
