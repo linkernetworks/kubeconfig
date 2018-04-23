@@ -12,3 +12,7 @@ install:
 
 script:
 - go test -bench=. -benchmem ./...
+
+cache:
+  directories:
+  - vendor/github.com
