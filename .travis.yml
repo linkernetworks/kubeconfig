@@ -1,13 +1,14 @@
+---
 language: go
 
 go:
-    - "1.10.1"
+- "1.10.1"
 
 before_install:
-    - go get -u github.com/kardianos/govendor
+- go get -u github.com/kardianos/govendor
 
 install:
-    - govendor sync
+- govendor sync
 
 script:
-    - go test -bench=. -benchmem ./...
+- go test -bench=. -benchmem ./...
